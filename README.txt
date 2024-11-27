@@ -65,13 +65,3 @@ This project uses the following machine learning models from scikit-learn for fr
 - Logistic Regression
 
 Libraries used include pandas, Flask, pymongo, bcrypt, and werkzeug for file uploads.
-
-Contributing
-------------
-
-Contributions are welcome! Please fork the repository and create a pull request for any improvements or fixes.
-
-License
--------
-
-This project is licensed under the MIT License. See the LICENSE file for details.
