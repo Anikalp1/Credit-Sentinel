@@ -61,6 +61,38 @@ This project is designed to identify fraudulent credit card transactions using a
 
    Access the application at [http://localhost:5000](http://localhost:5000) in your web browser.
 
+## Configuration
+
+### Setting Up OpenAI API Key
+
+To use the OpenAI API for this project, you need to set up your API key. Follow these steps:
+
+1. **Create a `.env` file** in the root directory of your project if it doesn't already exist.
+
+2. **Add your OpenAI API key** to the `.env` file:
+
+   ```plaintext
+   OPENAI_API_KEY=your_openai_api_key_here
+   ```
+
+   Replace `your_openai_api_key_here` with your actual OpenAI API key.
+
+3. **Ensure the `python-dotenv` package is installed** to load environment variables from the `.env` file. This package is already listed in your `requirements.txt`:
+
+   ```plaintext
+   python-dotenv
+   ```
+
+4. **The application will automatically load the API key** from the `.env` file when it starts, as shown in the `app.py` file:
+
+   ```python:app.py
+   startLine: 29
+   endLine: 33
+   ```
+
+By following these steps, you will successfully configure your application to use the OpenAI API key. Make sure to keep your API key secure and do not share it publicly.
+
+
 ## Project Structure
 
 - **app.py:** Flask application setup, routes, and machine learning models.
