@@ -25,7 +25,6 @@ This project is designed to identify fraudulent credit card transactions using a
 ### Prerequisites
 
 - Python 3.x
-- MongoDB (local or remote)
 - Git
 
 ### Steps
@@ -33,8 +32,8 @@ This project is designed to identify fraudulent credit card transactions using a
 1. **Clone the Repository:**
 
    ```bash
-   git clone https://github.com/valakalpesh/Credit-Card-Fraud-Detection.git
-   cd Credit-Card-Fraud-Detection
+   git clone https://github.com/Anikalp1/Credit-Sentinel.git
+   cd Credit_Sentinel
    ```
 
 2. **Set up Python Environment:**
@@ -49,18 +48,12 @@ This project is designed to identify fraudulent credit card transactions using a
    ```bash
    pip install -r requirements.txt
    ```
-
 4. **Download the Dataset:**
 
    - The dataset is not included in the repository due to size constraints.
-   - Download it from [Google Drive](https://drive.google.com/file/d/1tUFNkZL9KaHETca5-e_Q6UaCvgHuXcMt/view?usp=drive_link) and place it in a `data/` directory at the root of your project.
+   - Download it from [Google Drive](https://drive.google.com/drive/folders/1jczSrcBCYfgg7khNGWl07jVcxpg1u8y8?usp=sharing) and place this folder in the directory at the root of your project.
 
-5. **Set up MongoDB:**
-
-   - Install MongoDB locally or use a cloud-based service.
-   - Configure the MongoDB connection URI in `app.py` or a separate configuration file.
-
-6. **Run the Application:**
+5. **Run the Application:**
 
    ```bash
    python app.py
