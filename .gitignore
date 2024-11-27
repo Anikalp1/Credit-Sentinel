@@ -1,0 +1,50 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Packages
+*.egg
+*.egg-info/
+dist/
+build/
+wheels/
+pip-wheel-metadata/
+.tox/
+.nox/
+.venv/
+venv/
+ENV/
+env/
+.env
+.venv/
+venv/
+
+# Flask-specific
+instance/
+.flaskenv
+
+# Database
+*.sqlite3
+
+# Logs and backups
+*.log
+*.bak
+
+# VS Code config
+.vscode/
+
+# PyCharm config
+.idea/
+
+# Mac OS files
+.DS_Store
+
+# Python virtual environment
+venv/
+
+#all the csv files
+*.csv

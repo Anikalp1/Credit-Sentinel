@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Your CSV</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white font-sans">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-transparent shadow-lg fixed-top">
+        <div class="container mx-auto px-4">
+            <a class="navbar-brand text-3xl font-bold text-gradient" href="/">Credit Sentinel</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-end" id="navbarNav">
+                <ul class="navbar-nav space-x-4">
+                    <li class="nav-item">
+                        <a class="nav-link text-lg hover:text-blue-400 transition duration-300" href="/admin">Test Your CSV</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-lg hover:text-blue-400 transition duration-300" href="/predict_form">Detect Fraud</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-lg hover:text-blue-400 transition duration-300" href="/faq">Smart FAQ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-lg hover:text-blue-400 transition duration-300" href="/dashboard">About Project</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container flex-grow py-16">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-10">
+                <h2 class="text-blue-400 mb-4">Machine Learning Prediction</h2>
+                <form action="/predict" method="post" enctype="multipart/form-data" class="mb-5">
+                    <div class="mb-3">
+                        <label for="fileInput" class="form-label">Upload CSV File</label>
+                        <input class="form-control" type="file" id="fileInput" name="file">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+
+        <hr class="mt-5">
+        <h1 class="text-center text-6xl mb-5 pt-10">Result</h1>
+
+        <!-- Number of Fraudulent and Non-Fraudulent Data Points -->
+        <div class="row mt-5 justify-content-center">
+            <div class="col-md-10">
+                <h3 class="text-blue-400 mb-3">Number of Fraudulent and Non-Fraudulent Data Points</h3>
+                <table class="table table-dark table-striped">
+                    <tbody>
+                        <tr>
+                            <td>Number of Fraudulent Data Points</td>
+                            <td>{{ fraudulent_count }}</td>
+                        </tr>
+                        <tr>
+                            <td>Number of Non-Fraudulent Data Points</td>
+                            <td>{{ non_fraudulent_count }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Isolation Forest Model -->
+        <div class="row mt-5 justify-content-center">
+            <div class="col-md-10">
+                <h3 class="text-blue-400 mb-3">Isolation Forest Model</h3>
+                <table class="table table-dark table-striped">
+                    <tbody>
+                        <tr>
+                            <td>Accuracy</td>
+                            <td>{{ iso_forest_accuracy * 100 }} %</td>
+                        </tr>
+                        <tr>
+                            <td>Error</td>
+                            <td>{{ iso_forest_error * 100 }} %</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><pre>{{ iso_forest_classification_report }}</pre></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SVM Model -->
+        <div class="row mt-5 justify-content-center">
+            <div class="col-md-10">
+                <h3 class="text-blue-400 mb-3">SVM Model</h3>
+                <table class="table table-dark table-striped">
+                    <tbody>
+                        <tr>
+                            <td>Accuracy</td>
+                            <td>{{ svm_accuracy * 100 }} %</td>
+                        </tr>
+                        <tr>
+                            <td>Error</td>
+                            <td>{{ svm_error * 100 }} %</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><pre>{{ svm_classification_report }}</pre></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Logistic Regression Model -->
+        <div class="row mt-5 justify-content-center">
+            <div class="col-md-10">
+                <h3 class="text-blue-400 mb-3">Logistic Regression Model</h3>
+                <table class="table table-dark table-striped">
+                    <tbody>
+                        <tr>
+                            <td>Accuracy</td>
+                            <td>{{ logistic_accuracy * 100 }} %</td>
+                        </tr>
+                        <tr>
+                            <td>Error</td>
+                            <td>{{ logistic_error * 100 }} %</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><pre>{{ logistic_classification_report }}</pre></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Pie Chart for Model Comparison -->
+        <div class="flex justify-center mt-10">
+            <div class="w-full max-w-lg">
+                <h3 class="text-blue-400 mb-3 text-xl text-center">Model Comparison</h3>
+                <canvas id="modelComparisonChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Add this section to display the generated graphs -->
+        <div class="row mt-5 justify-content-center">
+            <div class="col-md-10">
+                <h3 class="text-blue-400 mb-3">Model Metrics Graphs</h3>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h4 class="text-center">Isolation Forest</h4>
+                        <img src="{{ url_for('static', filename='Isolation_Forest_metrics.png') }}" alt="Isolation Forest Metrics" class="img-fluid">
+                    </div>
+                    <div class="col-md-4">
+                        <h4 class="text-center">SVM</h4>
+                        <img src="{{ url_for('static', filename='SVM_metrics.png') }}" alt="SVM Metrics" class="img-fluid">
+                    </div>
+                    <div class="col-md-4">
+                        <h4 class="text-center">Logistic Regression</h4>
+                        <img src="{{ url_for('static', filename='Logistic_Regression_metrics.png') }}" alt="Logistic Regression Metrics" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add this section to display additional graphs -->
+        {% if additional_graphs %}
+        <div class="row mt-5 justify-content-center">
+            <div class="col-md-10">
+                <h3 class="text-blue-400 mb-3">Additional Data Visualizations</h3>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h4 class="text-center">Transaction Amount Distribution</h4>
+                        <img src="{{ url_for('static', filename='amount_distribution.png') }}" alt="Amount Distribution" class="img-fluid">
+                    </div>
+                    <div class="col-md-4">
+                        <h4 class="text-center">Time vs Amount</h4>
+                        <img src="{{ url_for('static', filename='time_vs_amount.png') }}" alt="Time vs Amount" class="img-fluid">
+                    </div>
+                    <div class="col-md-4">
+                        <h4 class="text-center">Feature Correlation Heatmap</h4>
+                        <img src="{{ url_for('static', filename='correlation_heatmap.png') }}" alt="Correlation Heatmap" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Footer -->
+    <div class="text-white py-4">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="text-center md:text-left mb-4 md:mb-0">
+                    <h3 class="text-lg font-bold">Credit Sentinel</h3>
+                    <p class="text-gray-500">&copy; 2024 Credit Sentinel</p>
+                </div>
+                <div class="flex space-x-4 mb-4 md:mb-0">
+                    <span class="hover:text-gray-400 cursor-pointer">Group details</span>
+                    <span class="text-gray-500">/</span>
+                    <span class="hover:text-gray-400 cursor-pointer">Group - 67</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Ensure these variables are defined and assigned values before using them
+        const iso_forest_accuracy = parseFloat("{{ iso_forest_accuracy * 100 }}");
+        const svm_accuracy = parseFloat("{{ svm_accuracy * 100 }}");
+        const logistic_accuracy = parseFloat("{{ logistic_accuracy * 100 }}");
+
+        const ctx = document.getElementById('modelComparisonChart').getContext('2d');
+        const modelComparisonChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Isolation Forest', 'SVM', 'Logistic Regression'],
+                datasets: [{
+                    label: 'Model Accuracy (%)',
+                    data: [iso_forest_accuracy, svm_accuracy, logistic_accuracy],
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(75, 192, 192, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(75, 192, 192, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Model Accuracy Comparison'
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

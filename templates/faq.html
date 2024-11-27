@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Credit Sentinel</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script>
+        async function askQuestion() {
+            const question = document.getElementById('question').value;
+            const responseDiv = document.getElementById('response');
+
+            const response = await fetch('/chatbot', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    'question': question
+                })
+            });
+
+            const data = await response.json();
+            responseDiv.innerText = data.response;
+        }
+    </script>
+</head>
+<body class="bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white font-sans min-h-screen flex flex-col justify-between">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-transparent shadow-lg fixed-top">
+        <div class="container mx-auto px-4">
+            <a class="navbar-brand text-3xl font-bold text-gradient" href="/">Credit Sentinel</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-end" id="navbarNav">
+                <ul class="navbar-nav space-x-4">
+                    <li class="nav-item">
+                        <a class="nav-link text-lg hover:text-blue-400 transition duration-300" href="/admin">Test Your CSV</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-lg hover:text-blue-400 transition duration-300" href="/predict_form">Detect Fraud</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-lg hover:text-blue-400 transition duration-300" href="/faq">Smart FAQ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-lg hover:text-blue-400 transition duration-300" href="/dashboard">About Project</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <section class="flex-grow flex items-center justify-center py-16">
+        <div class="container text-center px-4">
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-8 pt-10">Ask AI Credit Sentinel</h1>
+            <div class="bg-gray-800 bg-opacity-75 p-8 rounded-lg shadow-lg text-left max-w-3xl mx-auto">
+                <input type="text" id="question" class="w-full p-2 mb-4 text-black" placeholder="Ask a question...">
+                <button onclick="askQuestion()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button>
+                <div id="response" class="mt-4 text-lg"></div>
+            </div>
+            <a href="/" class="text-blue-400 hover:text-blue-600 transition duration-300 mt-4 inline-block">Back to Home</a>
+        </div>
+    </section>
+
+    <!-- New Static Credit Card Safety FAQs Section -->
+    <section class="py-12">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-blue-400 mb-8">Credit Card Safety FAQs</h2>
+            <div class="max-w-3xl mx-auto space-y-6">
+                <div>
+                    <h3 class="text-xl font-semibold">How can I keep my credit card information safe?</h3>
+                    <p>Always keep your credit card in a secure place, never share your PIN, and regularly monitor your account for unauthorized transactions.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold">What should I do if I suspect fraud on my credit card?</h3>
+                    <p>Contact your bank immediately to report the suspicious activity and follow their instructions to secure your account.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold">Is it safe to use my credit card online?</h3>
+                    <p>Yes, but ensure the website is secure (look for HTTPS in the URL) and avoid using public Wi-Fi when making transactions.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold">What are some common signs of credit card fraud?</h3>
+                    <p>Unfamiliar transactions, unexpected declines, and receiving calls or emails about purchases you didn't make are common signs of fraud.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <!-- Footer -->
+     <div class="text-white py-4">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="text-center md:text-left mb-4 md:mb-0">
+                    <h3 class="text-lg font-bold">Credit Sentinel</h3>
+                    <p class="text-gray-500">&copy; 2024 Credit Sentinel</p>
+                </div>
+                <div class="flex space-x-4 mb-4 md:mb-0">
+                    <span class="hover:text-gray-400 cursor-pointer">Group details</span>
+                    <span class="text-gray-500">/</span>
+                    <span class="hover:text-gray-400 cursor-pointer">Group - 67</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</body>
+</html>
