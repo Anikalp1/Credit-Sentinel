@@ -1,6 +1,6 @@
 # Credit Card Fraud Detection with Flask and Machine Learning
 
-Welcome to the **Credit Card Fraud Detection** project, a comprehensive solution that integrates web development, machine learning, and database management to detect fraudulent credit card transactions.
+Welcome to the **Credit Card Fraud Detection** project, a comprehensive solution that integrates web development and machine learning to detect fraudulent credit card transactions.
 
 ## Project Overview
 
@@ -120,6 +120,6 @@ This project employs the following models from scikit-learn for fraud detection:
 
 Developed by Group 67:
 
-- Anikalp Jaiswal
-- Ayushi Singh
-- Yashaswi Shahi
+- [Anikalp Jaiswal](https://www.linkedin.com/in/anikalp-jaiswal/)
+- [Ayushi Singh](https://www.linkedin.com/in/ayushi-singh810/)
+- [Yashaswi Shahi](https://www.linkedin.com/in/yashaswi-shahi-a10510229/)
